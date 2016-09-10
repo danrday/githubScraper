@@ -35,8 +35,6 @@ server.on('request', (req, res) => {
       fetchWeekly()
       })
 
-
-
     let fetchWeekly = function() {
        fetch(weeklyContrib)
         .then(function(res) {
@@ -57,26 +55,6 @@ server.on('request', (req, res) => {
         })
       }
 
-    // get(monthlyContrib, (err, _, body) => {
-    //
-    //   const $ = load(body)
-      //
-      // let x = Array.from($('.text-emphasized'))
-      //
-      // let commits = x[0].children[0].data
-      //
-      // console.log("commits:", commits)
-
-
-
-
-
-    // })
-
   })
-
-
-
-
 
 server.listen(8080)
