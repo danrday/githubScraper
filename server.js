@@ -35,6 +35,8 @@ server.on('request', (req, res) => {
       fetchWeekly()
       })
 
+
+
     let fetchWeekly = function() {
        fetch(weeklyContrib)
         .then(function(res) {
@@ -42,9 +44,16 @@ server.on('request', (req, res) => {
       }).then(function(body) {
         let z = load(body)
         let y = Array.from(z('.text-emphasized'))
+
+        let firstName = Array.from(z('.vcard-fullname'))
+
+        firstName = firstName[0].children[0].data
+        firstName = firstName.split(' ')[0]
+
         weekly = y[0].children[0].data
         console.log("weekly", weekly)
-          res.end(`weekly contribs: ${weekly} | monthly contribs: ${monthly}`)
+        console.log("name:", firstName)
+          res.end(`<h1>${firstName} has made ${weekly} commits in the last 7 days and ${monthly} commits in the last 30 days.</h1>`)
         })
       }
 
