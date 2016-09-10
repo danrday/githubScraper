@@ -1,0 +1,25 @@
+{
+  "name": "githubscraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danrday/githubScraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danrday/githubScraper/issues"
+  },
+  "homepage": "https://github.com/danrday/githubScraper#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "nodemon": "^1.10.2",
+    "request": "^2.74.0"
+  }
+}
