@@ -6,10 +6,7 @@ const { load } = require('cheerio')
 
 const { readFile } = require('fs')
 
-
 const server = createServer()
-
-let storedHTML = null;
 
 server.on('request', (req, res) => {
 
@@ -22,8 +19,19 @@ server.on('request', (req, res) => {
 
     let getThisURL = 'https://www.github.com/' + path
 
-    get(getThisURL, (err, _, body) => {
+    let weeklyContrib = getThisURL + '?tab=overview&period=weekly'
+
+    let monthlyContrib = getThisURL + '?tab=overview&period=monthly'
+
+    get(monthlyContrib, (err, _, body) => {
       const $ = load(body)
+
+      let x = Array.from($('.text-emphasized'))
+
+      let commits = x[0].children[0].data
+
+      console.log("commits:", commits)
+
       res.end($.html())
 
   })
