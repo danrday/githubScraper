@@ -6,6 +6,8 @@ const { load } = require('cheerio')
 
 const { readFile } = require('fs')
 
+const fetch = require('node-fetch');
+
 const server = createServer()
 
 server.on('request', (req, res) => {
@@ -15,27 +17,56 @@ server.on('request', (req, res) => {
     ? path.slice(1).concat('index.html')
     : path.slice(1)
 
-    console.log("path", path)
-
     let getThisURL = 'https://www.github.com/' + path
-
     let weeklyContrib = getThisURL + '?tab=overview&period=weekly'
-
     let monthlyContrib = getThisURL + '?tab=overview&period=monthly'
 
-    get(monthlyContrib, (err, _, body) => {
-      const $ = load(body)
+    let weekly = null;
+    let monthly = null;
 
-      let x = Array.from($('.text-emphasized'))
+    fetch(monthlyContrib)
+      .then(function(res) {
+        return res.text();
+    }).then(function(body) {
+      let z = load(body)
+      let y = Array.from(z('.text-emphasized'))
+      monthly = y[0].children[0].data
+      console.log("monthly:", monthly)
+      fetchWeekly()
+      })
 
-      let commits = x[0].children[0].data
+    let fetchWeekly = function() {
+       fetch(weeklyContrib)
+        .then(function(res) {
+          return res.text();
+      }).then(function(body) {
+        let z = load(body)
+        let y = Array.from(z('.text-emphasized'))
+        weekly = y[0].children[0].data
+        console.log("weekly", weekly)
+          res.end(`weekly contribs: ${weekly} | monthly contribs: ${monthly}`)
+        })
+      }
 
-      console.log("commits:", commits)
+    // get(monthlyContrib, (err, _, body) => {
+    //
+    //   const $ = load(body)
+      //
+      // let x = Array.from($('.text-emphasized'))
+      //
+      // let commits = x[0].children[0].data
+      //
+      // console.log("commits:", commits)
 
-      res.end($.html())
+
+
+
+
+    // })
 
   })
-})
+
+
 
 
 

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/danrday/githubScraper#readme",
   "dependencies": {
     "cheerio": "^0.22.0",
+    "node-fetch": "^1.6.0",
     "nodemon": "^1.10.2",
     "request": "^2.74.0"
   }
